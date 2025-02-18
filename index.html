@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formation Homes | Premium Property Developers in Ireland</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -32,12 +34,85 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>Building Your Future Home in Ireland</h1>
-                <p>Premium residential developments across Ireland's most sought-after locations</p>
-                <a href="developments.html" class="cta-button">View Our Developments</a>
+        <!-- Hero Slider Section -->
+        <section id="home" class="hero-slider">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+                            <div class="slide-content">
+                                <h2>Bloodmill Road</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+                            <div class="slide-content">
+                                <h2>Magee Barracks</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+                            <div class="slide-content">
+                                <h2>Bru Na Gruadan</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1600573472550-8090b5e0745e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+                            <div class="slide-content">
+                                <h2>Knockhill</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+                            <div class="slide-content">
+                                <h2>Newtown Meadows</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="swiper-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+                            <div class="slide-content">
+                                <h2>IFAC House</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2>Building Quality Homes in Ireland</h2>
+                <p>Formation Homes is committed to creating exceptional living spaces that combine quality, affordability, and modern design. Our developments are thoughtfully planned to meet the needs of today's homeowners.</p>
+                <div class="about-grid">
+                    <div class="about-item">
+                        <h3>Quality First</h3>
+                        <p>Premium materials and expert craftsmanship in every home we build.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>Affordable Living</h3>
+                        <p>Creating homes that offer great value without compromising on quality.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>Prime Locations</h3>
+                        <p>Carefully selected locations with excellent amenities and transport links.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -80,20 +155,12 @@
                             <option value="">Please select</option>
                             <option value="general">General Inquiry</option>
                             <option value="property">Property Interest</option>
-                            <option value="career">Career Opportunity</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="message">Message *</label>
                         <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-preference">Preferred Contact Method</label>
-                        <select id="contact-preference" name="contact-preference">
-                            <option value="email">Email</option>
-                            <option value="phone">Phone</option>
-                        </select>
                     </div>
                     <div class="form-group checkbox">
                         <input type="checkbox" id="gdpr" name="gdpr" required>
