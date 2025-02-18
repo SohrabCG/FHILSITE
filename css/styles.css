@@ -214,11 +214,25 @@ h1, h2, h3, h4 {
     background-color: var(--accent-color);
 }
 
+/* Careers Page Specific */
+.careers-hero {
+    height: 50vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+}
+
 /* Careers Section */
 .careers {
     padding: 5rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.careers .job-listing {
+    margin-bottom: 3rem;
+}
+
+.careers .job-listing:last-child {
+    margin-bottom: 0;
 }
 
 .careers h2 {
