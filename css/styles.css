@@ -1,4 +1,5 @@
 :root {
+    /* Colors */
     --primary-color: #F4B460;
     --secondary-color: #8C8C8C;
     --accent-color: #8CB369;
@@ -27,6 +28,13 @@ body {
 h1, h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 1rem;
+}
+
+/* Global Link Styles */
+a:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+    border-radius: 2px;
 }
 
 /* Header & Navigation */
@@ -77,10 +85,36 @@ h1, h2, h3, h4 {
     color: var(--text-color);
     font-weight: 500;
     transition: var(--transition);
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
     color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav-links a.active::after {
+    width: 100%;
 }
 
 .mobile-menu {
@@ -246,6 +280,70 @@ h1, h2, h3, h4 {
     transform: translateY(-2px);
 }
 
+/* Footer Links */
+.footer-column a {
+    color: #fff;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    margin: 0.5rem 0;
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.footer-column a::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.footer-column a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Contact Links */
+.info-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: -0.5rem -1rem;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.info-item a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--primary-color);
+    border-radius: 4px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+.info-item a:hover {
+    color: var(--background-color);
+}
+
+.info-item a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
 /* Developments Page Specific */
 .developments-hero {
     height: 50vh;
@@ -266,12 +364,6 @@ h1, h2, h3, h4 {
     border-radius: 5px;
     font-size: 0.9rem;
     margin: 1rem 0;
-}
-
-/* Active Navigation Link */
-.nav-links a.active {
-    color: var(--primary-color);
-    font-weight: 600;
 }
 
 .developments h2 {
@@ -468,16 +560,6 @@ h1, h2, h3, h4 {
     color: var(--text-color);
 }
 
-.info-item a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.info-item a:hover {
-    color: var(--accent-color);
-}
-
 .info-item .icon {
     font-size: 1.25rem;
     margin-top: 0.25rem;
@@ -585,18 +667,6 @@ h1, h2, h3, h4 {
 
 .footer-column ul {
     list-style: none;
-}
-
-.footer-column a {
-    color: #fff;
-    text-decoration: none;
-    transition: var(--transition);
-    display: inline-block;
-    margin: 0.5rem 0;
-}
-
-.footer-column a:hover {
-    color: var(--primary-color);
 }
 
 .footer-bottom {

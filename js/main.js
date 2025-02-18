@@ -203,18 +203,24 @@ if (contactForm) {
     });
 }
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// Smooth scrolling for in-page navigation links
+document.querySelectorAll('a[href^="#"]:not([href*=".html"])').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
-            // Close mobile menu if open
-            if (navLinks) {
-                navLinks.style.display = 'none';
+        const href = this.getAttribute('href');
+        // Only handle pure anchor links (not page links with anchors)
+        if (href.startsWith('#') && href.indexOf('.html') === -1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target && window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu if open
+                if (navLinks) {
+                    mobileMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    mobileMenu.setAttribute('aria-expanded', 'false');
+                }
             }
         }
     });
