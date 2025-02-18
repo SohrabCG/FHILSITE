@@ -58,6 +58,38 @@ a:focus-visible {
     align-items: center;
 }
 
+/* Override any inherited nav link styles */
+.nav-container .logo a,
+.nav-container .logo a:hover,
+.nav-container .logo a:active,
+.nav-container .logo a.active {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    transition: var(--transition);
+    border: none;
+    position: static;
+    padding: 0;
+}
+
+.nav-container .logo a::after,
+.nav-container .logo a:hover::after,
+.nav-container .logo a:active::after,
+.nav-container .logo a.active::after {
+    display: none;
+    content: none;
+}
+
+.nav-container .logo a:hover {
+    transform: scale(1.02);
+}
+
+.nav-container .logo a:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
 .logo h1 {
     margin: 0;
     line-height: 1;
@@ -115,6 +147,11 @@ a:focus-visible {
 
 .nav-links a.active::after {
     width: 100%;
+}
+
+/* Prevent underline on active logo link */
+.logo a.active::after {
+    display: none;
 }
 
 .mobile-menu {
@@ -636,6 +673,38 @@ a:focus-visible {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
+}
+
+/* Override any inherited footer link styles */
+.footer-content .footer-logo a,
+.footer-content .footer-logo a:hover,
+.footer-content .footer-logo a:active,
+.footer-content .footer-logo a.active {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    transition: var(--transition);
+    border: none;
+    position: static;
+    padding: 0;
+}
+
+.footer-content .footer-logo a::after,
+.footer-content .footer-logo a:hover::after,
+.footer-content .footer-logo a:active::after,
+.footer-content .footer-logo a.active::after {
+    display: none;
+    content: none;
+}
+
+.footer-content .footer-logo a:hover {
+    transform: scale(1.02);
+}
+
+.footer-content .footer-logo a:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+    border-radius: 2px;
 }
 
 .footer-logo h1 {
