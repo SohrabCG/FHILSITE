@@ -1,29 +1,31 @@
-// Initialize Swiper
-const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    direction: 'horizontal',
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    effect: 'fade',
-    fadeEffect: {
-        crossFade: true
-    },
+// Initialize Swiper if it exists on the page
+if (document.querySelector('.swiper')) {
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
 
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
 
-    // Pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-});
+        // Pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+}
 
 // Mobile Menu Toggle
 const mobileMenu = document.querySelector('.mobile-menu');
@@ -32,6 +34,48 @@ const navLinks = document.querySelector('.nav-links');
 if (mobileMenu && navLinks) {
     mobileMenu.addEventListener('click', () => {
         navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+}
+
+// Modal Functionality
+const imageModal = document.getElementById('image-modal');
+const modalImage = document.getElementById('modal-image');
+const closeModal = document.querySelector('.close-modal');
+const newtownMeadowsCard = document.getElementById('newtown-meadows-card');
+const previewImage = document.querySelector('#newtown-meadows-card .preview-image');
+
+if (newtownMeadowsCard && imageModal && modalImage && previewImage) {
+    // Open modal when clicking the Newtown Meadows card
+    newtownMeadowsCard.addEventListener('click', (e) => {
+        // Don't open modal if clicking the interest button
+        if (!e.target.classList.contains('interest-button')) {
+            modalImage.src = previewImage.src;
+            modalImage.alt = previewImage.alt;
+            imageModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+    });
+
+    // Close modal when clicking the close button
+    closeModal.addEventListener('click', () => {
+        imageModal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    });
+
+    // Close modal when clicking outside the image
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) {
+            imageModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && imageModal.style.display === 'flex') {
+            imageModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
     });
 }
 
