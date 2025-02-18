@@ -37,32 +37,108 @@ if (mobileMenu && navLinks) {
     });
 }
 
-// Modal Functionality
+// Gallery and Modal Functionality
 const imageModal = document.getElementById('image-modal');
 const modalImage = document.getElementById('modal-image');
 const closeModal = document.querySelector('.close-modal');
 const newtownMeadowsCard = document.getElementById('newtown-meadows-card');
-const previewImage = document.querySelector('#newtown-meadows-card .preview-image');
+const modalThumbnails = document.querySelector('.modal-thumbnails');
+const prevButton = document.querySelector('.modal-nav.prev');
+const nextButton = document.querySelector('.modal-nav.next');
 
-if (newtownMeadowsCard && imageModal && modalImage && previewImage) {
-    // Open modal when clicking the Newtown Meadows card
+// Gallery images array
+const galleryImages = [
+    {
+        src: 'images/Newtown/Newtown01.JPG',
+        alt: 'Newtown Meadows View 1'
+    },
+    {
+        src: 'images/Newtown/Newtown02.JPG',
+        alt: 'Newtown Meadows View 2'
+    },
+    {
+        src: 'images/Newtown/Newtown03.JPG',
+        alt: 'Newtown Meadows View 3'
+    },
+    {
+        src: 'images/Newtown/Newtown04.JPG',
+        alt: 'Newtown Meadows View 4'
+    },
+    {
+        src: 'images/Newtown/Newtown05.JPG',
+        alt: 'Newtown Meadows View 5'
+    },
+    {
+        src: 'images/Newtown/Newtown06.JPG',
+        alt: 'Newtown Meadows View 6'
+    },
+    {
+        src: 'images/Newtown/Newtown07.JPG',
+        alt: 'Newtown Meadows View 7'
+    },
+    {
+        src: 'images/Newtown/Newtown08.JPG',
+        alt: 'Newtown Meadows View 8'
+    },
+    {
+        src: 'images/Newtown/Newtown09.JPG',
+        alt: 'Newtown Meadows View 9'
+    }
+];
+
+let currentImageIndex = 0;
+
+if (newtownMeadowsCard && imageModal && modalImage) {
+    // Create modal thumbnails
+    galleryImages.forEach((image, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = image.src;
+        thumb.alt = `Thumbnail ${index + 1}`;
+        thumb.dataset.index = index;
+        modalThumbnails.appendChild(thumb);
+
+        thumb.addEventListener('click', () => {
+            setActiveImage(index);
+        });
+    });
+
+    // Function to update active image
+    function setActiveImage(index) {
+        currentImageIndex = index;
+        modalImage.src = galleryImages[index].src;
+        modalImage.alt = galleryImages[index].alt;
+        
+        // Update thumbnails
+        modalThumbnails.querySelectorAll('img').forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+    }
+
+    // Navigation functions
+    function showNextImage() {
+        const nextIndex = (currentImageIndex + 1) % galleryImages.length;
+        setActiveImage(nextIndex);
+    }
+
+    function showPrevImage() {
+        const prevIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+        setActiveImage(prevIndex);
+    }
+
+    // Event Listeners
     newtownMeadowsCard.addEventListener('click', (e) => {
-        // Don't open modal if clicking the interest button
         if (!e.target.classList.contains('interest-button')) {
-            modalImage.src = previewImage.src;
-            modalImage.alt = previewImage.alt;
+            setActiveImage(0);
             imageModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+            document.body.style.overflow = 'hidden';
         }
     });
 
-    // Close modal when clicking the close button
     closeModal.addEventListener('click', () => {
         imageModal.style.display = 'none';
-        document.body.style.overflow = ''; // Restore scrolling
+        document.body.style.overflow = '';
     });
 
-    // Close modal when clicking outside the image
     imageModal.addEventListener('click', (e) => {
         if (e.target === imageModal) {
             imageModal.style.display = 'none';
@@ -70,13 +146,22 @@ if (newtownMeadowsCard && imageModal && modalImage && previewImage) {
         }
     });
 
-    // Close modal with Escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && imageModal.style.display === 'flex') {
-            imageModal.style.display = 'none';
-            document.body.style.overflow = '';
+        if (imageModal.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = '';
+            } else if (e.key === 'ArrowRight') {
+                showNextImage();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevImage();
+            }
         }
     });
+
+    // Navigation buttons
+    prevButton.addEventListener('click', showPrevImage);
+    nextButton.addEventListener('click', showNextImage);
 }
 
 // Form Submissions

@@ -103,8 +103,23 @@
 
                 <!-- Newtown Meadows -->
                 <div class="development-card" id="newtown-meadows-card">
-                    <div class="development-image">
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="House 62 at Newtown Meadows Development" class="preview-image">
+                    <div class="development-image gallery">
+                        <img src="images/Newtown/Newtown01.JPG" 
+                             alt="Newtown Meadows Development View 1" 
+                             class="preview-image" 
+                             loading="lazy"
+                             data-gallery="Newtown"
+                             data-index="0">
+                        <div class="gallery-thumbnails">
+                            <img src="images/Newtown/Newtown02.JPG" alt="Newtown Meadows View 2" loading="lazy" data-index="1">
+                            <img src="images/Newtown/Newtown03.JPG" alt="Newtown Meadows View 3" loading="lazy" data-index="2">
+                            <img src="images/Newtown/Newtown04.JPG" alt="Newtown Meadows View 4" loading="lazy" data-index="3">
+                            <img src="images/Newtown/Newtown05.JPG" alt="Newtown Meadows View 5" loading="lazy" data-index="4">
+                            <img src="images/Newtown/Newtown06.JPG" alt="Newtown Meadows View 6" loading="lazy" data-index="5">
+                            <img src="images/Newtown/Newtown07.JPG" alt="Newtown Meadows View 7" loading="lazy" data-index="6">
+                            <img src="images/Newtown/Newtown08.JPG" alt="Newtown Meadows View 8" loading="lazy" data-index="7">
+                            <img src="images/Newtown/Newtown09.JPG" alt="Newtown Meadows View 9" loading="lazy" data-index="8">
+                        </div>
                     </div>
                     <div class="development-content">
                         <h3>Newtown Meadows</h3>
@@ -150,7 +165,12 @@
     <div id="image-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" style="display: none;">
         <div class="modal-content">
             <span class="close-modal" aria-label="Close modal">&times;</span>
-            <img id="modal-image" src="" alt="" style="width: 100%; height: auto;">
+            <button class="modal-nav prev" aria-label="Previous image">&lt;</button>
+            <button class="modal-nav next" aria-label="Next image">&gt;</button>
+            <div class="modal-image-container">
+                <img id="modal-image" src="" alt="" style="width: 100%; height: auto;">
+            </div>
+            <div class="modal-thumbnails"></div>
         </div>
     </div>
 
