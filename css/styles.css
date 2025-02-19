@@ -90,20 +90,15 @@ a:focus-visible {
     border-radius: 2px;
 }
 
-.logo h1 {
-    margin: 0;
-    line-height: 1;
-    font-size: clamp(24px, 2vw, 32px);
-    font-weight: 600;
+.header-logo {
+    height: 65px;
+    width: auto;
+    display: block;
+    transition: var(--transition);
 }
 
-.logo-formation {
-    color: var(--primary-color);
-}
-
-.logo-homes {
-    color: var(--secondary-color);
-    font-weight: 400;
+.nav-container .logo a:hover .header-logo {
+    transform: scale(1.02);
 }
 
 .nav-links {
@@ -894,20 +889,25 @@ a:focus-visible {
     border-radius: 2px;
 }
 
-.footer-logo h1 {
-    margin: 0;
-    line-height: 1;
-    font-size: 32px;
-    font-weight: 600;
+.footer-logo-img {
+    height: 50px;
+    width: auto;
+    display: block;
+    transition: var(--transition);
 }
 
-.footer .logo-formation {
-    color: var(--primary-color);
+.footer-content .footer-logo a:hover .footer-logo-img {
+    transform: scale(1.02);
 }
 
-.footer .logo-homes {
-    color: var(--secondary-color);
-    font-weight: 400;
+@media (max-width: 768px) {
+    .header-logo {
+        height: 50px;
+    }
+    
+    .footer-logo-img {
+        height: 40px;
+    }
 }
 
 .footer-links {
