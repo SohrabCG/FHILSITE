@@ -93,14 +93,19 @@ if (mobileMenu && navLinks) {
     });
 }
 
-// Gallery and Modal Functionality
+// Gallery and Modal Functionality with Touch Support
 const imageModal = document.getElementById('image-modal');
 const modalImage = document.getElementById('modal-image');
-const closeModal = document.querySelector('.close-modal');
+const closeModalBtn = document.querySelector('.close-modal');
 const newtownMeadowsCard = document.getElementById('newtown-meadows-card');
 const modalThumbnails = document.querySelector('.modal-thumbnails');
 const prevButton = document.querySelector('.modal-nav.prev');
 const nextButton = document.querySelector('.modal-nav.next');
+
+// Touch variables
+let touchStartX = 0;
+let touchEndX = 0;
+const SWIPE_THRESHOLD = 50;
 
 // Gallery images array
 const galleryImages = [
@@ -181,32 +186,45 @@ if (newtownMeadowsCard && imageModal && modalImage) {
         setActiveImage(prevIndex);
     }
 
+    // Modal functions with transitions
+    function openModal() {
+        imageModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+            imageModal.style.opacity = '1';
+            modalImage.style.transform = 'scale(1)';
+        });
+    }
+
+    function closeModal() {
+        imageModal.style.opacity = '0';
+        modalImage.style.transform = 'scale(0.95)';
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            imageModal.style.display = 'none';
+        }, 300);
+    }
+
     // Event Listeners
     newtownMeadowsCard.addEventListener('click', (e) => {
         if (!e.target.classList.contains('interest-button')) {
             setActiveImage(0);
-            imageModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            openModal();
         }
     });
 
-    closeModal.addEventListener('click', () => {
-        imageModal.style.display = 'none';
-        document.body.style.overflow = '';
-    });
+    closeModalBtn.addEventListener('click', () => closeModal());
 
     imageModal.addEventListener('click', (e) => {
         if (e.target === imageModal) {
-            imageModal.style.display = 'none';
-            document.body.style.overflow = '';
+            closeModal();
         }
     });
 
     document.addEventListener('keydown', (e) => {
         if (imageModal.style.display === 'flex') {
             if (e.key === 'Escape') {
-                imageModal.style.display = 'none';
-                document.body.style.overflow = '';
+                closeModal();
             } else if (e.key === 'ArrowRight') {
                 showNextImage();
             } else if (e.key === 'ArrowLeft') {
@@ -218,6 +236,30 @@ if (newtownMeadowsCard && imageModal && modalImage) {
     // Navigation buttons
     prevButton.addEventListener('click', showPrevImage);
     nextButton.addEventListener('click', showNextImage);
+
+    // Touch event handlers
+    modalImage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    modalImage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+            if (swipeDistance > 0) {
+                // Swipe right
+                showPrevImage();
+            } else {
+                // Swipe left
+                showNextImage();
+            }
+        }
+    }
 }
 
 // Form Submissions

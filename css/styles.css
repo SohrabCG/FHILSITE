@@ -712,9 +712,8 @@ a:focus-visible {
 }
 
 /* Developments Page Specific */
-.developments-hero,
-.careers-hero {
-    height: 50vh;
+.developments-hero {
+    min-height: 60vh;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -722,11 +721,60 @@ a:focus-visible {
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    margin-top: 60px;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.developments-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(26, 41, 66, 0.7) 0%,
+        rgba(26, 41, 66, 0.85) 100%
+    );
+    z-index: 1;
+}
+
+.developments-hero .section-content {
+    position: relative;
+    z-index: 2;
 }
 
 .developments-hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    background-image: url('https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+}
+
+.breadcrumb {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--background-color);
+    z-index: 2;
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.breadcrumb a {
+    color: var(--background-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-color);
+}
+
+.breadcrumb span {
+    opacity: 0.7;
 }
 
 .careers-hero {
@@ -815,22 +863,56 @@ a:focus-visible {
 
 .development-card {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+}
+
+.development-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .development-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+}
+
+.development-card:hover::after {
+    opacity: 1;
+}
+
+.development-image {
+    position: relative;
+    overflow: hidden;
 }
 
 .development-image img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     cursor: pointer;
+    transition: transform 0.6s ease;
+}
+
+.development-card:hover .development-image img {
+    transform: scale(1.05);
+}
+
+.development-content {
+    padding: 2rem;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 255, 255, 1)
+    );
+    position: relative;
 }
 
 .gallery {
@@ -1159,6 +1241,9 @@ a:focus-visible {
     justify-content: center;
     align-items: center;
     z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
@@ -1171,6 +1256,12 @@ a:focus-visible {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#modal-image {
+    transition: transform 0.3s ease;
 }
 
 .modal-image-container {
