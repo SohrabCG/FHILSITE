@@ -319,27 +319,16 @@ function showApplicationModal(jobTitle, position) {
     applicationForm.querySelector('#position').value = position;
     
     // Show modal
-    applicationModal.style.display = 'flex';
+    applicationModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    requestAnimationFrame(() => {
-        applicationModal.style.opacity = '1';
-        applicationModal.querySelector('.application-modal').style.transform = 'scale(1)';
-        applicationModal.querySelector('.application-modal').style.opacity = '1';
-    });
 }
 
 function closeApplicationModal() {
     if (!applicationModal) return;
     
-    applicationModal.style.opacity = '0';
-    applicationModal.querySelector('.application-modal').style.transform = 'scale(0.95)';
-    applicationModal.querySelector('.application-modal').style.opacity = '0';
+    applicationModal.classList.remove('active');
     document.body.style.overflow = '';
-    
-    setTimeout(() => {
-        applicationModal.style.display = 'none';
-        if (applicationForm) applicationForm.reset();
-    }, 300);
+    if (applicationForm) applicationForm.reset();
 }
 
 // Initialize Application Form
@@ -374,7 +363,7 @@ if (applicationForm && applicationModal) {
 
     // Close on escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && applicationModal.style.display === 'flex') {
+        if (e.key === 'Escape' && applicationModal.classList.contains('active')) {
             closeApplicationModal();
         }
     });
