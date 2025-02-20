@@ -35,6 +35,11 @@
     <main>
         <!-- Hero Section -->
         <section class="section-container section-container--dark hero careers-hero">
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Careers</span>
+            </nav>
             <div class="section-content hero-content">
                 <h1>Join Our Team</h1>
                 <p>Build your career with Ireland's leading property developer</p>
@@ -121,6 +126,50 @@
                     <button class="apply-button" data-position="sales-marketing">Apply Now</button>
                 </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Application Section -->
+        <section class="section-container section-container--light application-section">
+            <div class="section-content">
+                <h2>Apply Now</h2>
+                <p class="section-description">Take the next step in your career with Formation Homes</p>
+                <form id="application-form" class="application-form">
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <select id="position" name="position" required>
+                            <option value="">Select a position</option>
+                            <option value="quantity-surveyor">Senior Quantity Surveyor</option>
+                            <option value="site-manager">Site Manager</option>
+                            <option value="sales-marketing">Sales & Marketing Executive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cv">Upload CV (PDF)</label>
+                        <input type="file" id="cv" name="cv" accept=".pdf" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cover-letter">Cover Letter</label>
+                        <textarea id="cover-letter" name="cover-letter" rows="5"></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <label for="privacy">I agree to the privacy policy and terms of service</label>
+                    </div>
+                    <button type="submit" class="submit-button">Submit Application</button>
+                </form>
             </div>
         </section>
     </main>

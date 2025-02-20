@@ -262,22 +262,68 @@ if (newtownMeadowsCard && imageModal && modalImage) {
     }
 }
 
+// Job Listings Mobile Functionality
+function initJobListings() {
+    const jobListings = document.querySelectorAll('.job-listing');
+    jobListings.forEach(listing => {
+        const title = listing.querySelector('h3');
+        title.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                listing.classList.toggle('expanded');
+            }
+        });
+    });
+}
+
+// Initialize job listings when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initJobListings();
+});
+
 // Form Submissions
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+function handleFormSubmission(form, successMessage) {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
         
         // Collect form data
-        const formData = new FormData(contactForm);
+        const formData = new FormData(form);
         const data = Object.fromEntries(formData);
         
         // Here you would typically send the data to a server
         console.log('Form submitted:', data);
         
         // Show success message
-        alert('Thank you for your message. We will get back to you soon!');
-        contactForm.reset();
+        alert(successMessage);
+        form.reset();
+    });
+}
+
+// Contact Form
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    handleFormSubmission(contactForm, 'Thank you for your message. We will get back to you soon!');
+}
+
+// Application Form
+const applicationForm = document.getElementById('application-form');
+if (applicationForm) {
+    handleFormSubmission(applicationForm, 'Thank you for your application. Our team will review it and contact you shortly.');
+
+    // Handle Apply Now buttons
+    const applyButtons = document.querySelectorAll('.apply-button');
+    applyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const position = button.dataset.position;
+            const positionSelect = document.getElementById('position');
+            
+            // Set the position in the form
+            if (positionSelect) {
+                positionSelect.value = position;
+            }
+            
+            // Scroll to application form
+            applicationForm.scrollIntoView({ behavior: 'smooth' });
+        });
     });
 }
 
