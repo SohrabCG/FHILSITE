@@ -1,3 +1,20 @@
+// Parallax Effect for Sustainability Section
+const parallaxBg = document.querySelector('.sustainability .parallax-bg');
+let lastScrollY = window.pageYOffset;
+
+function handleParallax() {
+    if (parallaxBg) {
+        const scrolled = window.pageYOffset;
+        const speed = 0.5;
+        const yPos = -(scrolled * speed);
+        parallaxBg.style.transform = `translateY(${yPos}px)`;
+        lastScrollY = scrolled;
+    }
+}
+
+// Add passive scroll listener for better performance
+window.addEventListener('scroll', handleParallax, { passive: true });
+
 // Initialize Swiper if it exists on the page
 if (document.querySelector('.swiper')) {
     const swiper = new Swiper('.swiper', {
@@ -12,7 +29,8 @@ if (document.querySelector('.swiper')) {
         fadeEffect: {
             crossFade: true
         },
-
+        speed: 1000, // Transition duration
+        
         // Navigation arrows
         navigation: {
             nextEl: '.swiper-button-next',
@@ -23,7 +41,25 @@ if (document.querySelector('.swiper')) {
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
+            renderBullet: function (index, className) {
+                return '<span class="' + className + '"></span>';
+            }
         },
+
+        // Events
+        on: {
+            init: function () {
+                this.el.classList.add('initialized');
+            },
+            slideChangeTransitionStart: function () {
+                const activeSlide = this.slides[this.activeIndex];
+                activeSlide.querySelector('.slide-image').style.transform = 'scale(1.1)';
+            },
+            slideChangeTransitionEnd: function () {
+                const activeSlide = this.slides[this.activeIndex];
+                activeSlide.querySelector('.slide-image').style.transform = 'scale(1)';
+            }
+        }
     });
 }
 
