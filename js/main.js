@@ -66,30 +66,64 @@ if (document.querySelector('.swiper')) {
 // Mobile Menu Toggle
 const mobileMenu = document.querySelector('.mobile-menu');
 const navLinks = document.querySelector('.nav-links');
+const navOverlay = document.querySelector('.nav-overlay');
+let menuTouchStartX = 0;
+let menuTouchEndX = 0;
+const MENU_SWIPE_THRESHOLD = 50;
 
-if (mobileMenu && navLinks) {
+if (mobileMenu && navLinks && navOverlay) {
+    function toggleMenu(show) {
+        mobileMenu.classList.toggle('active', show);
+        navLinks.classList.toggle('active', show);
+        navOverlay.classList.toggle('active', show);
+        document.body.classList.toggle('menu-open', show);
+        mobileMenu.setAttribute('aria-expanded', show);
+    }
+
     mobileMenu.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        mobileMenu.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+        const isExpanded = mobileMenu.getAttribute('aria-expanded') === 'true';
+        toggleMenu(!isExpanded);
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-            mobileMenu.setAttribute('aria-expanded', 'false');
-        }
-    });
+    // Close menu when clicking overlay
+    navOverlay.addEventListener('click', () => toggleMenu(false));
 
     // Close menu when clicking a link
     navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-            mobileMenu.setAttribute('aria-expanded', 'false');
-        });
+        link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    // Touch events for swipe to close
+    navLinks.addEventListener('touchstart', (e) => {
+        menuTouchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    navLinks.addEventListener('touchmove', (e) => {
+        if (navLinks.classList.contains('active')) {
+            const currentX = e.touches[0].clientX;
+            const diff = currentX - menuTouchStartX;
+            if (diff > 0) {
+                e.preventDefault();
+                navLinks.style.transform = `translateX(${diff}px)`;
+            }
+        }
+    });
+
+    navLinks.addEventListener('touchend', (e) => {
+        menuTouchEndX = e.changedTouches[0].clientX;
+        const swipeDistance = menuTouchEndX - menuTouchStartX;
+        
+        if (swipeDistance > MENU_SWIPE_THRESHOLD) {
+            toggleMenu(false);
+        }
+        navLinks.style.transform = '';
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            toggleMenu(false);
+        }
     });
 }
 
@@ -102,10 +136,10 @@ const modalThumbnails = document.querySelector('.modal-thumbnails');
 const prevButton = document.querySelector('.modal-nav.prev');
 const nextButton = document.querySelector('.modal-nav.next');
 
-// Touch variables
-let touchStartX = 0;
-let touchEndX = 0;
-const SWIPE_THRESHOLD = 50;
+// Gallery Touch variables
+let galleryTouchStartX = 0;
+let galleryTouchEndX = 0;
+const GALLERY_SWIPE_THRESHOLD = 50;
 
 // Gallery images array
 const galleryImages = [
@@ -239,18 +273,18 @@ if (newtownMeadowsCard && imageModal && modalImage) {
 
     // Touch event handlers
     modalImage.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+        galleryTouchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
     modalImage.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
+        galleryTouchEndX = e.changedTouches[0].screenX;
         handleSwipe();
     }, { passive: true });
 
     function handleSwipe() {
-        const swipeDistance = touchEndX - touchStartX;
+        const swipeDistance = galleryTouchEndX - galleryTouchStartX;
         
-        if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+        if (Math.abs(swipeDistance) > GALLERY_SWIPE_THRESHOLD) {
             if (swipeDistance > 0) {
                 // Swipe right
                 showPrevImage();
