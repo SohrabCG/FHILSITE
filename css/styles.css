@@ -1077,10 +1077,13 @@ a:focus-visible {
     cursor: pointer;
     transition: var(--transition);
     margin-top: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .interest-button:hover {
     background-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 /* Careers Page Specific */

@@ -274,3 +274,306 @@ body {
         touch-action: manipulation;
     }
 }
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(3px);
+    visibility: hidden;
+    padding: 1rem;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    max-height: calc(100vh - 2rem);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    overflow-y: auto;
+}
+
+.application-modal {
+    background: white;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 15px;
+    position: relative;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    max-height: calc(100vh - 2rem);
+}
+
+.modal.active .application-modal {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.section-description {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.application-form {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+    background: white;
+}
+
+.modal-content h2 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.modal-content label {
+    color: var(--text-color);
+}
+
+.modal-content input,
+.modal-content textarea {
+    background-color: white;
+    color: var(--text-color);
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal .close-modal {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.modal .close-modal:hover {
+    color: var(--text-color);
+    transform: scale(1.1);
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.registration-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+.registration-form {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+    background: white;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--section-background-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: #ccc;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(244, 180, 96, 0.1);
+}
+
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.submit-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+}
+
+.submit-button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+.registration-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-field {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-field label {
+    font-weight: 500;
+    color: var(--section-background-dark);
+}
+
+.form-field input,
+.form-field textarea {
+    padding: 0.75rem;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(244, 180, 96, 0.1);
+}
+
+.radio-group {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.form-controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.submit-button,
+.cancel-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.submit-button {
+    background-color: var(--primary-color);
+    color: white;
+    flex: 2;
+}
+
+.submit-button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.cancel-button {
+    background-color: #eee;
+    color: var(--text-color);
+    flex: 1;
+}
+
+.cancel-button:hover {
+    background-color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .form-controls {
+        flex-direction: column;
+    }
+
+    .submit-button,
+    .cancel-button {
+        width: 100%;
+    }
+}

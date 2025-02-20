@@ -309,10 +309,85 @@ function initJobListings() {
     });
 }
 
-// Initialize job listings when DOM is loaded
+// Initialize job listings and registration modal when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initJobListings();
+    
+    // Initialize registration buttons
+    document.querySelectorAll('.interest-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const developmentName = button.dataset.development;
+            const displayName = button.closest('.development-card')
+                                    .querySelector('h3').textContent;
+            showRegistrationModal(developmentName, displayName);
+        });
+    });
+
+    // Initialize registration form
+    const registrationForm = document.getElementById('registration-form');
+    if (registrationForm) {
+        handleFormSubmission(
+            registrationForm,
+            'Thank you for your interest! We will contact you soon about this development.',
+            hideRegistrationModal
+        );
+    }
+
+    // Initialize registration modal close buttons
+    const registrationModal = document.getElementById('registration-modal');
+    const closeModalBtn = registrationModal?.querySelector('.close-modal');
+    const cancelBtn = registrationModal?.querySelector('.cancel-button');
+    const modalOverlay = registrationModal?.querySelector('.modal-overlay');
+
+    if (registrationModal) {
+        [closeModalBtn, cancelBtn].forEach(btn => {
+            btn?.addEventListener('click', hideRegistrationModal);
+        });
+
+        modalOverlay?.addEventListener('click', hideRegistrationModal);
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && registrationModal.classList.contains('active')) {
+                hideRegistrationModal();
+            }
+        });
+    }
 });
+
+// Registration Modal Functions
+function showRegistrationModal(developmentName, displayName) {
+    const modal = document.getElementById('registration-modal');
+    const form = document.getElementById('registration-form');
+    const developmentInput = document.getElementById('development-name');
+    const displayInput = document.getElementById('development-display');
+    
+    if (modal && form && developmentInput && displayInput) {
+        developmentInput.value = developmentName;
+        displayInput.value = displayName;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
+    }
+}
+
+function hideRegistrationModal() {
+    const modal = document.getElementById('registration-modal');
+    const form = document.getElementById('registration-form');
+    
+    if (modal && form) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        form.reset();
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}
 
 // Form Submissions
 function handleFormSubmission(form, successMessage, onSuccess = () => {}) {

@@ -7,17 +7,10 @@
     <!-- Critical CSS -->
     <link rel="stylesheet" href="css/critical.css">
     
-    <!-- Async CSS Loading -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    
-    <!-- Fallback for no JavaScript -->
-    <noscript>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap">
-    </noscript>
+    <!-- CSS Loading -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap">
     
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
@@ -188,6 +181,52 @@
                 <img id="modal-image" src="" alt="" style="width: 100%; height: auto;">
             </div>
             <div class="modal-thumbnails"></div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registration-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-content application-modal">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <h2>Register Interest</h2>
+            <p class="section-description">Register your interest in this development and we'll keep you updated</p>
+            <form id="registration-form" class="application-form">
+                <input type="hidden" id="development-name" name="development-name">
+                <div class="form-group">
+                    <label>Selected Development</label>
+                    <input type="text" id="development-display" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="full-name">Full Name *</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Contact Method *</label>
+                    <div class="radio-group">
+                        <input type="radio" id="contact-email" name="contact-preference" value="email" checked>
+                        <label for="contact-email">Email</label>
+                        <input type="radio" id="contact-phone" name="contact-preference" value="phone">
+                        <label for="contact-phone">Phone</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Additional Information</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Please share any specific requirements or questions..."></textarea>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="privacy" name="privacy" required>
+                    <label for="privacy">I agree to the privacy policy and terms of service</label>
+                </div>
+                <button type="submit" class="submit-button">Submit Interest</button>
+            </form>
         </div>
     </div>
 
