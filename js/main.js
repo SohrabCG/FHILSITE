@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Form Submissions
-function handleFormSubmission(form, successMessage) {
+function handleFormSubmission(form, successMessage, onSuccess = () => {}) {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -295,6 +295,7 @@ function handleFormSubmission(form, successMessage) {
         // Show success message
         alert(successMessage);
         form.reset();
+        onSuccess();
     });
 }
 
@@ -304,26 +305,78 @@ if (contactForm) {
     handleFormSubmission(contactForm, 'Thank you for your message. We will get back to you soon!');
 }
 
-// Application Form
+// Application Modal
+const applicationModal = document.getElementById('application-modal');
 const applicationForm = document.getElementById('application-form');
-if (applicationForm) {
-    handleFormSubmission(applicationForm, 'Thank you for your application. Our team will review it and contact you shortly.');
+const closeApplicationModalBtn = applicationModal?.querySelector('.close-modal');
+const jobTitleSpan = applicationModal?.querySelector('.job-title');
+
+function showApplicationModal(jobTitle, position) {
+    if (!applicationModal || !applicationForm) return;
+    
+    // Set job details
+    jobTitleSpan.textContent = jobTitle;
+    applicationForm.querySelector('#position').value = position;
+    
+    // Show modal
+    applicationModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+        applicationModal.style.opacity = '1';
+        applicationModal.querySelector('.application-modal').style.transform = 'scale(1)';
+        applicationModal.querySelector('.application-modal').style.opacity = '1';
+    });
+}
+
+function closeApplicationModal() {
+    if (!applicationModal) return;
+    
+    applicationModal.style.opacity = '0';
+    applicationModal.querySelector('.application-modal').style.transform = 'scale(0.95)';
+    applicationModal.querySelector('.application-modal').style.opacity = '0';
+    document.body.style.overflow = '';
+    
+    setTimeout(() => {
+        applicationModal.style.display = 'none';
+        if (applicationForm) applicationForm.reset();
+    }, 300);
+}
+
+// Initialize Application Form
+if (applicationForm && applicationModal) {
+    // Handle form submission
+    handleFormSubmission(
+        applicationForm,
+        'Thank you for your application. Our team will review it and contact you shortly.',
+        closeApplicationModal
+    );
 
     // Handle Apply Now buttons
-    const applyButtons = document.querySelectorAll('.apply-button');
-    applyButtons.forEach(button => {
-        button.addEventListener('click', () => {
+    document.querySelectorAll('.apply-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent job listing expansion on mobile
+            const jobListing = button.closest('.job-listing');
+            const jobTitle = jobListing.querySelector('h3').textContent;
             const position = button.dataset.position;
-            const positionSelect = document.getElementById('position');
-            
-            // Set the position in the form
-            if (positionSelect) {
-                positionSelect.value = position;
-            }
-            
-            // Scroll to application form
-            applicationForm.scrollIntoView({ behavior: 'smooth' });
+            showApplicationModal(jobTitle, position);
         });
+    });
+
+    // Close modal button
+    closeApplicationModalBtn?.addEventListener('click', closeApplicationModal);
+
+    // Close on background click
+    applicationModal.addEventListener('click', (e) => {
+        if (e.target === applicationModal) {
+            closeApplicationModal();
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && applicationModal.style.display === 'flex') {
+            closeApplicationModal();
+        }
     });
 }
 

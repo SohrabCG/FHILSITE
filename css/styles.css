@@ -1151,57 +1151,59 @@ a:focus-visible {
     background-color: var(--accent-color);
 }
 
-/* Application Section */
-.application-section {
-    background-color: var(--section-background-light);
+/* Application Modal */
+.application-modal {
+    background: white;
+    max-width: 800px;
+    width: 90%;
+    padding: 2.5rem;
+    border-radius: 15px;
     position: relative;
-    overflow: hidden;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.application-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-        var(--section-background-light) 25%, 
-        rgba(255, 255, 255, 0.5) 25%, 
-        rgba(255, 255, 255, 0.5) 50%, 
-        var(--section-background-light) 50%, 
-        var(--section-background-light) 75%, 
-        rgba(255, 255, 255, 0.5) 75%
-    );
-    background-size: 20px 20px;
-    opacity: 0.5;
+.modal.active .application-modal {
+    transform: scale(1);
+    opacity: 1;
 }
 
-.application-section .section-content {
-    position: relative;
-    z-index: 1;
-}
-
-.application-section h2 {
+.application-modal h2 {
     text-align: center;
     color: var(--section-background-dark);
     margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.application-modal .close-modal {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.application-modal .close-modal:hover {
+    color: var(--text-color);
+    transform: scale(1.1);
 }
 
 .section-description {
     text-align: center;
     color: var(--secondary-color);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 1.1rem;
 }
 
 .application-form {
-    max-width: 800px;
     margin: 0 auto;
     background: white;
-    padding: 3rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .application-form .form-group {
@@ -1282,14 +1284,30 @@ a:focus-visible {
 }
 
 @media (max-width: 768px) {
-    .application-form {
+    .application-modal {
         padding: 2rem;
+        width: 95%;
+    }
+
+    .application-modal h2 {
+        font-size: 1.5rem;
+        padding-right: 2rem;
     }
 }
 
 @media (max-width: 480px) {
-    .application-form {
+    .application-modal {
         padding: 1.5rem;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .application-modal .close-modal {
+        top: 1rem;
+        right: 1rem;
     }
 
     .application-form input,
