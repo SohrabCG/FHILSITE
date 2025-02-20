@@ -7,6 +7,59 @@
     --text-color: #333333;
     --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
+
+    /* Section Colors */
+    --section-background-dark: #1A2942;    /* Primary dark blue for hero */
+    --section-background-light: #f8f9fa;   /* Light gray for alternating */
+    --section-background-white: #ffffff;    /* White for standard */
+    --section-background-accent: var(--primary-color);   /* Accent for CTAs */
+    
+    /* Section Spacing */
+    --section-padding-desktop: 5rem;
+    --section-padding-mobile: 3rem;
+    --section-content-width: 1200px;
+}
+
+/* Global Section Layout */
+.section-container {
+    width: 100%;
+    padding: var(--section-padding-desktop) 0;
+}
+
+.section-container--dark {
+    background-color: var(--section-background-dark);
+    color: var(--background-color);
+}
+
+.section-container--light {
+    background-color: var(--section-background-light);
+}
+
+.section-container--white {
+    background-color: var(--section-background-white);
+}
+
+.section-container--accent {
+    background-color: var(--section-background-accent);
+    color: var(--background-color);
+}
+
+.section-content {
+    max-width: var(--section-content-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .section-container {
+        padding: var(--section-padding-mobile) 0;
+    }
+    
+    .section-content {
+        padding: 0 1rem;
+    }
 }
 
 * {
