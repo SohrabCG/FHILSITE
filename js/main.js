@@ -351,6 +351,64 @@ if (applicationForm && applicationModal) {
         });
     });
 
+    // Handle file upload UI
+    const fileInput = applicationForm.querySelector('input[type="file"]');
+    const fileUpload = applicationForm.querySelector('.file-upload');
+    const fileUploadText = fileUpload.querySelector('.file-upload-text');
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            fileUploadText.innerHTML = `
+                <strong>${file.name}</strong>
+                <span>${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            `;
+            fileUpload.style.borderColor = 'var(--primary-color)';
+            fileUpload.style.background = 'white';
+        } else {
+            fileUploadText.innerHTML = `
+                <strong>Choose a file</strong>
+                <span>or drag and drop here</span>
+            `;
+            fileUpload.style.borderColor = '#ddd';
+            fileUpload.style.background = '#f8f9fa';
+        }
+    });
+
+    // Handle drag and drop
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        fileUpload.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        fileUpload.addEventListener(eventName, () => {
+            fileUpload.style.borderColor = 'var(--primary-color)';
+            fileUpload.style.background = 'white';
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        fileUpload.addEventListener(eventName, () => {
+            fileUpload.style.borderColor = '#ddd';
+            fileUpload.style.background = '#f8f9fa';
+        });
+    });
+
+    fileUpload.addEventListener('drop', (e) => {
+        const file = e.dataTransfer.files[0];
+        if (file && file.type === 'application/pdf') {
+            fileInput.files = e.dataTransfer.files;
+            fileUploadText.innerHTML = `
+                <strong>${file.name}</strong>
+                <span>${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            `;
+            fileUpload.style.borderColor = 'var(--primary-color)';
+        }
+    });
+
     // Close modal button
     closeApplicationModalBtn?.addEventListener('click', closeApplicationModal);
 

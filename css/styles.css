@@ -1207,30 +1207,42 @@ a:focus-visible {
 }
 
 .application-form {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 600px;
     margin: 0 auto;
     background: white;
 }
 
 .application-form .form-group {
-    margin-bottom: 1.5rem;
+    display: grid;
+    gap: 0.5rem;
 }
 
 .application-form label {
     display: block;
-    margin-bottom: 0.5rem;
     color: var(--section-background-dark);
     font-weight: 500;
+    font-size: 0.95rem;
 }
 
 .application-form input,
 .application-form select,
 .application-form textarea {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
+    padding: 1rem;
+    border: 2px solid #eee;
     border-radius: 8px;
     font-family: inherit;
+    font-size: 1rem;
+    background: white;
     transition: all 0.3s ease;
+}
+
+.application-form input:hover,
+.application-form select:hover,
+.application-form textarea:hover {
+    border-color: #ddd;
 }
 
 .application-form input:focus,
@@ -1238,36 +1250,70 @@ a:focus-visible {
 .application-form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(244, 180, 96, 0.2);
+    box-shadow: 0 0 0 3px rgba(244, 180, 96, 0.1);
 }
 
-.application-form input[type="file"] {
-    padding: 0.5rem;
+.application-form .file-upload {
+    position: relative;
+    padding: 2rem;
     border: 2px dashed #ddd;
+    border-radius: 8px;
+    text-align: center;
     background: #f8f9fa;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
-.application-form input[type="file"]:hover {
+.application-form .file-upload:hover {
     border-color: var(--primary-color);
+    background: white;
+}
+
+.application-form input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.application-form .file-upload-text {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+.application-form .file-upload-text strong {
+    display: block;
+    color: var(--section-background-dark);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
 }
 
 .application-form .checkbox {
     display: flex;
     align-items: flex-start;
-    gap: 0.5rem;
-    margin: 2rem 0;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.application-form .checkbox:hover {
+    background-color: #f8f9fa;
 }
 
 .application-form .checkbox input {
-    width: auto;
-    margin-top: 0.3rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.2rem;
+    cursor: pointer;
 }
 
 .application-form .checkbox label {
     font-size: 0.9rem;
     margin: 0;
     color: var(--secondary-color);
+    cursor: pointer;
 }
 
 .application-form .submit-button {
@@ -1281,11 +1327,17 @@ a:focus-visible {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
 .application-form .submit-button:hover {
     background-color: var(--accent-color);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.application-form .submit-button:active {
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {

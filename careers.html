@@ -152,10 +152,16 @@
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
-                <div class="form-group">
-                    <label for="cv">Upload CV (PDF)</label>
-                    <input type="file" id="cv" name="cv" accept=".pdf" required>
-                </div>
+                    <div class="form-group">
+                        <label for="cv">Upload CV (PDF)</label>
+                        <div class="file-upload">
+                            <input type="file" id="cv" name="cv" accept=".pdf" required>
+                            <div class="file-upload-text">
+                                <strong>Choose a file</strong>
+                                <span>or drag and drop here</span>
+                            </div>
+                        </div>
+                    </div>
                 <div class="form-group">
                     <label for="cover-letter">Cover Letter</label>
                     <textarea id="cover-letter" name="cover-letter" rows="5"></textarea>
